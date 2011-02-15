@@ -1,0 +1,7 @@
+<?php
+
+/**
+ * @file meego_sync_users.module
+ *
+ * Most methods are implemented as drush commands.
+ */

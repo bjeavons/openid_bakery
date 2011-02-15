@@ -1,0 +1,3 @@
+name = OpenID Bakery Redirect
+description = "Simulate OpenID integration on register/login form but redirect user to Bakery master"
+core = 6.x
