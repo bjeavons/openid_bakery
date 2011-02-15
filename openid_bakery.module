@@ -1,7 +1,28 @@
 <?php
 
 /**
- * @file meego_sync_users.module
- *
- * Most methods are implemented as drush commands.
+ * @file openid_bakery.module
  */
+
+/**
+ * Implementation of hook_form_alter : adds Bakery master redirect link.
+ */
+function openid_bakery_form_alter(&$form, $form_state, $form_id) {
+  //
+  if (module_exists('bakery') && !module_exists('openid') && $form_id == 'user_login_block' || $form_id == 'user_login') {
+    // Get Bakery master.
+    $master = variable_get('bakery_master', 'http://drupal.org/');
+    $items = array();
+    // @todo would be great to have OpenID element visible.
+    $items[] = array(
+      'data' => l(t('Log in using OpenID'), $master . 'user', array('html' => TRUE)),
+    );
+    
+    $form['openid_links'] = array(
+      '#value' => theme('item_list', $items),
+      '#weight' => 1,
+    );
+
+    $form['links']['#weight'] = 2;
+  }
+}
