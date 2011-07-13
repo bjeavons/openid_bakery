@@ -8,8 +8,8 @@
  * Implementation of hook_form_alter : adds Bakery master redirect link.
  */
 function openid_bakery_form_alter(&$form, $form_state, $form_id) {
-  //
-  if (module_exists('bakery') && !module_exists('openid') && $form_id == 'user_login_block' || $form_id == 'user_login') {
+  // Only modify the login links on Bakery slave sites without OpenID enabled.
+  if (module_exists('bakery') && !module_exists('openid') && in_array($form_id, array('user_login_block', 'user_login'))) {
     // Get Bakery master.
     $master = variable_get('bakery_master', 'http://drupal.org/');
     $items = array();
